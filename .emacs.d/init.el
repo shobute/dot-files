@@ -12,6 +12,7 @@
 
 (defvar myPackages
   '(helm
+    projectile
     helm-projectile
     evil
     magit
@@ -31,10 +32,10 @@
 
 (setq inhibit-startup-message t) ;; hide the startup message
 (load-theme 'monokai t) ;; load theme
+(tool-bar-mode -1)
 (setq nyan-animate-nyancat t)
 (setq nyan-wavy-trail t)
 (nyan-mode)
-
 
 ;; BASIC CUSTOMIZATION
 ;; --------------------------------------
@@ -42,6 +43,7 @@
 
 (desktop-save-mode 1)
 
+(setq evil-want-C-u-scroll t)
 (require 'evil)
 (evil-mode 1)
 
@@ -90,18 +92,3 @@
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (linum-relative nyan-mode helm-projectile projectile monokai-theme helm material-theme flycheck evil elpy ein better-defaults))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
