@@ -19,13 +19,34 @@
     ein
     elpy
     flycheck
-    monokai-theme
-    nyan-mode))
+    monokai-theme))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
       (package-install package)))
       myPackages)
+
+;; EVIL
+;; --------------------------------------
+(setq evil-want-C-u-scroll t)
+(setq evil-want-C-w-in-emacs-state t)
+(require 'evil)
+(evil-mode 1)
+
+;; BASIC CUSTOMIZATION
+;; --------------------------------------
+(desktop-save-mode 1)
+
+(defvar my-leader-map (make-sparse-keymap)
+  "Keymap for \"leader key\" shortcuts.")
+(define-key evil-normal-state-map (kbd "SPC") my-leader-map)
+(define-key my-leader-map "g" 'magit-status)
+
+;; store all backup and autosave files in the tmp dir
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
 ;; THEME
 ;; --------------------------------------
@@ -33,27 +54,6 @@
 (setq inhibit-startup-message t) ;; hide the startup message
 (load-theme 'monokai t) ;; load theme
 (tool-bar-mode -1)
-(setq nyan-animate-nyancat t)
-(setq nyan-wavy-trail t)
-(nyan-mode)
-
-;; BASIC CUSTOMIZATION
-;; --------------------------------------
-(global-linum-mode t) ;; enable line numbers globally
-
-(desktop-save-mode 1)
-
-(setq evil-want-C-u-scroll t)
-(require 'evil)
-(evil-mode 1)
-
-(global-set-key (kbd "C-x g") 'magit-status)
-
-;; store all backup and autosave files in the tmp dir
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
 
 ;; HELM CONFIGURATION
 ;; --------------------------------------
