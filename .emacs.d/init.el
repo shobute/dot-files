@@ -15,6 +15,7 @@
     projectile
     helm-projectile
     evil
+    evil-surround
     magit
     ein
     elpy
@@ -30,8 +31,12 @@
 ;; --------------------------------------
 (setq evil-want-C-u-scroll t)
 (setq evil-want-C-w-in-emacs-state t)
+
 (require 'evil)
 (evil-mode 1)
+
+(require 'evil-surround)
+(global-evil-surround-mode 1)
 
 ;; BASIC CUSTOMIZATION
 ;; --------------------------------------
@@ -92,3 +97,17 @@
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (evil-surround nyan-mode monokai-theme material-theme linum-relative helm-projectile flycheck evil-magit elpy ein better-defaults))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
