@@ -31,7 +31,6 @@
 ;; EVIL
 ;; --------------------------------------
 (setq evil-want-C-u-scroll t)
-(setq evil-want-C-w-in-emacs-state t)
 
 (require 'evil)
 (evil-mode 1)
@@ -45,6 +44,8 @@
 ;; BASIC CUSTOMIZATION
 ;; --------------------------------------
 (desktop-save-mode 1)
+
+(winner-mode 1)
 
 (defvar my-leader-map (make-sparse-keymap)
   "Keymap for \"leader key\" shortcuts.")
