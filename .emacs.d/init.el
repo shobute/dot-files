@@ -101,3 +101,12 @@
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+
+;; WINDOWS SPECIFIC SETTINGS
+;; --------------------------------------
+(when (eq system-type 'windows-nt)
+  (setq exec-path (add-to-list 'exec-path "C:/Program Files (x86)/Gow/bin"))
+  (setenv "PATH" (concat "C:\\Program Files (x86)\\Gow\\bin;" (getenv "PATH")))  
+  (setq make-backup-files nil)
+  (tooltip-mode nil))
