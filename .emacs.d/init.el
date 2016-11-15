@@ -31,6 +31,7 @@
 ;; EVIL
 ;; --------------------------------------
 (setq evil-want-C-u-scroll t)
+(setq evil-want-C-w-in-emacs-state t)
 
 (require 'evil)
 (evil-mode 1)
@@ -43,14 +44,12 @@
 
 ;; BASIC CUSTOMIZATION
 ;; --------------------------------------
+(server-start)
+
 (desktop-save-mode 1)
 
-(winner-mode 1)
-
-(defvar my-leader-map (make-sparse-keymap)
-  "Keymap for \"leader key\" shortcuts.")
-(define-key evil-normal-state-map (kbd "SPC") my-leader-map)
-(define-key my-leader-map "g" 'magit-status)
+(setq-default indent-tabs-mode nil)
+(setq whitespace-style '(face tabs spaces trailing space-before-tab newline indentation empty space-after-tab space-mark tab-mark newline-mark))
 
 ;; store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
@@ -58,12 +57,25 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
+(setq vc-handled-backends (delq 'Git vc-handled-backends)) ;; Use magit instead
+
+(require 'whitespace)
+
+(defvar my-leader-map (make-sparse-keymap)
+  "Keymap for \"leader key\" shortcuts.")
+(define-key evil-normal-state-map (kbd "SPC") my-leader-map)
+(define-key my-leader-map "g" 'magit-status)
+(define-key my-leader-map "s" 'whitespace-mode)
+
 ;; THEME
 ;; --------------------------------------
 
 (setq inhibit-startup-message t) ;; hide the startup message
 (load-theme 'monokai t) ;; load theme
 (tool-bar-mode -1)
+
+(add-to-list 'default-frame-alist
+             '(font . "Consolas-10"))
 
 ;; HELM CONFIGURATION
 ;; --------------------------------------
@@ -89,7 +101,7 @@
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
-
+(setq projectile-indexing-method 'alien)
 
 ;; PYTHON CONFIGURATION
 ;; --------------------------------------
@@ -102,11 +114,11 @@
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
-
 ;; WINDOWS SPECIFIC SETTINGS
 ;; --------------------------------------
 (when (eq system-type 'windows-nt)
   (setq exec-path (add-to-list 'exec-path "C:/Program Files (x86)/Gow/bin"))
   (setenv "PATH" (concat "C:\\Program Files (x86)\\Gow\\bin;" (getenv "PATH")))  
   (setq make-backup-files nil)
+  (setq create-lockfiles nil)
   (tooltip-mode nil))
